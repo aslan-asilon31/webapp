@@ -1,0 +1,31 @@
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "text/html") // penting supaya browser render HTML
+    fmt.Fprintln(w, `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>My Go Web App</title>
+        <style>
+            body { font-family: Arial; background-color: #f0f0f0; text-align: center; }
+            h1 { color: #333; margin-top: 50px; }
+        </style>
+    </head>
+    <body>
+        <h1>Hello from Go Web App!</h1>
+        <p>Selamat datang di website sederhana Go.</p>
+    </body>
+    </html>
+    `)
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":65534", nil)
+}
